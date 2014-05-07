@@ -2,6 +2,10 @@
 
 A tiny functions collection to do some machine learning research on multidimensional datasets based on kernel regression.
 
+## Why another regression system
+
+Regression systems are useable tools to analyse datasets which conludes inputs and targets. Some of these kind of machine learning systems are based on hypothesis. The sucess is bounded to the qualitiy of the hypothesis. Often it is practical to define a specific hypothesis function with particular features, so that the dataset can be analysed on this features. In other cases the regression modell should fit the dataset as good as possible. In this case the hypothesis should *only* fit the data. An automaticly generated hypothesis is useable, if no special features are needed. 
+
 ## What does my kernel_regression
 
 Kernel Regression is a nonparametric regression concept that produces its own hypothesis. The given feature tuples {x, y} will be used to generate the hypothesis. A kernel function K(u) evaluates the significance of the several feature points. The hypothesis will be calculated based on the Nadaraya-Watson-Estimator-Concept m_i = sum(y_j Kh(u_ij))/sum(Kh(u_ij)). As cost function the mean-squared-error (MSE) is implemented.
@@ -16,6 +20,7 @@ The primary functionality of this collection.
 ### Find the optimized hypothesis
 For the first use you only need to call the function **learnKernelRegression**.
 
+```matlab
 h_opt = **learnKernelRegression**(x_val, y_val, x_learn, y_learn, kernelString, hMode, scaleMode, OptimOptions)
 
 * x_val: mxk matrix; contains the input data to calculate the hypothesis values for the optimisation
@@ -27,14 +32,16 @@ h_opt = **learnKernelRegression**(x_val, y_val, x_learn, y_learn, kernelString, 
 * scaleMode: string; 'scaled' or 'unscaled' kernel function
 * OptimOptions: struct; option set for the optimisation function (see optimset)
 
-m is the number of validation tuples 
+m is the number of validation tuples  
 k is the number of the input features  
 n is the number of the training tuples and the number of the hypothesis features  
 h_opt is a scalar or a 1xn vector. These values are the optimized parameter for the hypothesis.
+```
 
 ### Calculate new tuples
 To calculate a new tuple set based on the optimized hypothesis call the function **nadarayaWatsonEstimator**.
 
+```matlab
 M = **nadarayaWatsonEstimator**(x, x_feature, y_feature, kernelFunction, h, scaleMode)
 
 * x: mxk matrix; contains the input data to calculate the hypothesis values
@@ -50,3 +57,18 @@ m is the number of validation tuples
 k is the number of the input features  
 n is the number of the training tuples and the number of the hypothesis features  
 M is a  mx1 vector. These values are the estimated targets depending on the input data
+```
+
+### Dimension reduction
+This function evaluates each data point and sort them. Call the function **krReduceDim** to run the dimension reduction.
+
+```matlab
+[x_red, y_red] = **krRedcDim**(N, x_feature, y_feature)
+
+* N: scalar in the range of 1 to 100; percent of dimension reduction
+* x_feature: nxk matrix; contains the input data
+* y_feature: nx1 matrix; contains the target data
+
+m is the number of validation tuples  
+k is the number of the input features
+```
