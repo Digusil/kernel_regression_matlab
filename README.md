@@ -21,7 +21,8 @@ The primary functionality of this collection.
 For the first use you only need to call the function **learnKernelRegression**.
 
 ```matlab
-h_opt = **learnKernelRegression**(x_val, y_val, x_learn, y_learn, kernelString, hMode, scaleMode, OptimOptions)
+h_opt = learnKernelRegression(x_val, y_val, x_learn, y_learn, kernelString, hMode, scaleMode, OptimOptions)
+```
 
 * x_val: mxk matrix; contains the input data to calculate the hypothesis values for the optimisation
 * y_val: mx1 vector; contains the target date to evaluate the hypothesis for the optimisation
@@ -36,13 +37,14 @@ m is the number of validation tuples
 k is the number of the input features  
 n is the number of the training tuples and the number of the hypothesis features  
 h_opt is a scalar or a 1xn vector. These values are the optimized parameter for the hypothesis.
-```
+
 
 ### Calculate new tuples
 To calculate a new tuple set based on the optimized hypothesis call the function **nadarayaWatsonEstimator**.
 
 ```matlab
-M = **nadarayaWatsonEstimator**(x, x_feature, y_feature, kernelFunction, h, scaleMode)
+M = nadarayaWatsonEstimator(x, x_feature, y_feature, kernelFunction, h, scaleMode)
+```
 
 * x: mxk matrix; contains the input data to calculate the hypothesis values
 * x_feature: nxk matrix; contains the input data for the hypothesis
@@ -57,13 +59,13 @@ m is the number of validation tuples
 k is the number of the input features  
 n is the number of the training tuples and the number of the hypothesis features  
 M is a  mx1 vector. These values are the estimated targets depending on the input data
-```
 
 ### Dimension reduction
 This function evaluates each data point and sort them. Call the function **krReduceDim** to run the dimension reduction.
 
 ```matlab
-[x_red, y_red] = **krRedcDim**(N, x_feature, y_feature)
+[x_red, y_red] = krRedcDim(N, x_feature, y_feature)
+```
 
 * N: scalar in the range of 1 to 100; percent of dimension reduction
 * x_feature: nxk matrix; contains the input data
@@ -71,4 +73,3 @@ This function evaluates each data point and sort them. Call the function **krRed
 
 m is the number of validation tuples  
 k is the number of the input features
-```
