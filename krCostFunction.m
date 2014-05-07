@@ -13,7 +13,7 @@ function [J, dJ] = krCostFunction(x_val, y_val, x_feature, y_feature, kernelFunc
 	
 	dJ = 1/m * dz'*hypo;
     
-    J(isnan(J)) = 0;
+    J(isnan(J)) = 1e25;
     dJ(isnan(dJ)) = 0;
     
     J(isinf(J)) = sign(J(isinf(J)))*1e25;

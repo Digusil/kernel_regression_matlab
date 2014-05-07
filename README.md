@@ -4,7 +4,7 @@ A tiny functions collection to do some machine learning research on multidimensi
 
 ## What does my kernel_regression
 
-Kernel Regression is a nonparametric regression concept that produces its own hypothesis. The given feature datasets {x, y} will be used to generate the hypothesis. A kernel function K(u) evaluates the significance of the several feature points. The hypothesis will be calculated based on the Nadaraya-Watson-Estimator-Concept m_i = sum(y_j Kh(u_ij))/sum(Kh(u_ij)). As cost function the mean-squared-error (MSE) is implemented.
+Kernel Regression is a nonparametric regression concept that produces its own hypothesis. The given feature tuples {x, y} will be used to generate the hypothesis. A kernel function K(u) evaluates the significance of the several feature points. The hypothesis will be calculated based on the Nadaraya-Watson-Estimator-Concept m_i = sum(y_j Kh(u_ij))/sum(Kh(u_ij)). As cost function the mean-squared-error (MSE) is implemented.
 
 My kernel regression supports different modes for parametrizing the kernel function. Its possible to use a general bandwidth h over all feature points or to optimize separately for each. Also you can choose if you want to use a scaled Kh(u) = 1/h*K(u) or unscaled kernel function K(u). As kernel function the common ones are implemented (gaussian, cauchy, picard, uniform, triangle, cosinus and epanechnikov). Own kernel functions can be built in.
 
@@ -27,13 +27,13 @@ h_opt = **learnKernelRegression**(x_val, y_val, x_learn, y_learn, kernelString, 
 * scaleMode: string; 'scaled' or 'unscaled' kernel function
 * OptimOptions: struct; option set for the optimisation function (see optimset)
 
-m is the number of validation datasets  
+m is the number of validation tuples 
 k is the number of the input features  
-n is the number of the training datasets and the number of the hypothesis features  
+n is the number of the training tuples and the number of the hypothesis features  
 h_opt is a scalar or a 1xn vector. These values are the optimized parameter for the hypothesis.
 
-### Calculate new datasets
-To calculate a new dataset based on the optimized hypothesis call the function **nadarayaWatsonEstimator**.
+### Calculate new tuples
+To calculate a new tuple set based on the optimized hypothesis call the function **nadarayaWatsonEstimator**.
 
 M = **nadarayaWatsonEstimator**(x, x_feature, y_feature, kernelFunction, h, scaleMode)
 
@@ -46,7 +46,7 @@ M = **nadarayaWatsonEstimator**(x, x_feature, y_feature, kernelFunction, h, scal
 * h: scalar or 1xn vector; use the calculated h_opt here
 * scaleMode: string; 'scaled' or 'unscaled' kernel function
 
-m is the number of validation datasets  
+m is the number of validation tuples  
 k is the number of the input features  
-n is the number of the training datasets and the number of the hypothesis features  
+n is the number of the training tuples and the number of the hypothesis features  
 M is a  mx1 vector. These values are the estimated targets depending on the input data
