@@ -18,7 +18,7 @@ My kernel regression supports different modes for parametrizing the kernel funct
 The primary functionality of this collection.
 
 ### Find the optimized hypothesis
-For the first use you only need to call the function **learnKernelRegression**.
+For the first use you only need to call the function `learnKernelRegression`.
 
 ```matlab
 h_opt = learnKernelRegression(x_val, y_val, x_learn, y_learn, kernelString, hMode, scaleMode, OptimOptions)
@@ -40,7 +40,7 @@ h_opt is a scalar or a 1xn vector. These values are the optimized parameter for 
 
 
 ### Calculate new tuples
-To calculate a new tuple set based on the optimized hypothesis call the function **nadarayaWatsonEstimator**.
+To calculate a new tuple set based on the optimized hypothesis call the function `nadarayaWatsonEstimator`.
 
 ```matlab
 M = nadarayaWatsonEstimator(x, x_feature, y_feature, kernelFunction, h, scaleMode)
@@ -49,7 +49,7 @@ M = nadarayaWatsonEstimator(x, x_feature, y_feature, kernelFunction, h, scaleMod
 * x: mxk matrix; contains the input data to calculate the hypothesis values
 * x_feature: nxk matrix; contains the input data for the hypothesis
 * y_feature: nx1 vector; contains the target data for the hypothesis
-* kernelString: function; use the same kernel function as in the function **learnKernelRegression**.
+* kernelString: function; use the same kernel function as in the function `learnKernelRegression`.
 	* Example for 'gaussian' => @(u) gaussianKernel(u)
 	* Example for 'epanechnikov1' => @(u) epanechnikovKernel(u, 1)
 * h: scalar or 1xn vector; use the calculated h_opt here
@@ -61,7 +61,7 @@ n is the number of the training tuples and the number of the hypothesis features
 M is a  mx1 vector. These values are the estimated targets depending on the input data
 
 ### Dimension reduction
-This function evaluates each data point and sort them. Call the function **krReduceDim** to run the dimension reduction.
+This function evaluates each data point and sort them. Call the function `krReduceDim` to run the dimension reduction.
 
 ```matlab
 [x_red, y_red] = krRedcDim(N, x_feature, y_feature)
