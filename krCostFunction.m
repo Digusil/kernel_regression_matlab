@@ -1,11 +1,11 @@
-function [J, dJ] = krCostFunction(x_val, y_val, x_feature, y_feature, kernelFunction, h, scaleMode)  
-	m = size(x_val,1);
+function [J, dJ] = krCostFunction(u_feature, y_val, y_feature, kernelFunction, h, scaleMode)  
+	m = size(u_feature,1);
 
     if numel(h) > 1
-		h = reshape(h,1,size(x_feature,1));
+		h = reshape(h,1,size(u_feature,2));
     end
     
-	[z, dz] = nadarayaWatsonEstimator(x_val, x_feature, y_feature, kernelFunction, h, scaleMode);
+	[z, dz] = nadarayaWatsonEstimator(u_feature, y_feature, kernelFunction, h, scaleMode);
 
 	hypo = z - y_val;
 

@@ -2,8 +2,7 @@ function [h_est, rho] = estimateH(x)
 
     [m, n] = size(x);
 
-    x2 = sum(x.^2, 2);
-    u = sqrt(abs(bsxfun(@plus, x2, bsxfun(@plus, x2', - 2 * (x * x')))));
+    u = krFeature(x, x);
     
     h_est = 0.22 * m^-0.185 * n^0.45 * median(u(:));
     
