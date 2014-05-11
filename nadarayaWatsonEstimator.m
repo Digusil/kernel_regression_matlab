@@ -3,14 +3,16 @@ function [m, dm, ddm] = nadarayaWatsonEstimator(u_feature, y_feature, kernelFunc
     if numel(h) > 1
         h = ones(size(u_feature,1),1)*h;
     end
+    
+    u = u_feature./h;
 
     switch nargout
         case 1
-            K = kernelFunction(u_feature./h);
+            K = kernelFunction(u);
         case 2
-            [K, dK] = kernelFunction(u_feature./h);
+            [K, dK] = kernelFunction(u);
         otherwise
-            [K, dK, ddK] = kernelFunction(u_feature./h);
+            [K, dK, ddK] = kernelFunction(u);
     end
 
     switch scaleMode
@@ -31,12 +33,12 @@ function [m, dm, ddm] = nadarayaWatsonEstimator(u_feature, y_feature, kernelFunc
     if nargout > 1
         switch scaleMode
             case 'unscaled'
-                dK = -u_feature./h.*dK;
+                dK = -u./h.*dK;
 
                 da = dK.*(ones(size(dK,1),1)*y_feature');
                 db = dK;
             case 'scaled'
-                dKh = -1./(h.^2).*(u_feature.*dK + K);
+                dKh = -1./(h.^2).*(u.*dK + K);
 
                 da = dKh.*(ones(size(dKh,1),1)*y_feature');
                 db = dKh;
@@ -46,7 +48,7 @@ function [m, dm, ddm] = nadarayaWatsonEstimator(u_feature, y_feature, kernelFunc
             da = sum(da, 2);
             db = sum(db, 2);
         else
-            N = size(u_feature,2);
+            N = size(u,2);
             a = a*ones(1,N);
             b = b*ones(1,N);
         end
@@ -57,12 +59,12 @@ function [m, dm, ddm] = nadarayaWatsonEstimator(u_feature, y_feature, kernelFunc
     if nargout > 2
         switch scaleMode
             case 'unscaled'
-                ddK = u./(h.^2).*(2*dK+u_feature*ddK);
+                ddK = u./(h.^2).*(2*dK+u*ddK);
 
                 dda = ddK.*(ones(size(ddK,1),1)*y_feature');
                 ddb = ddK;
             case 'scaled'
-                ddKh = -1./(h.^3).*(u_feature*dK + K)-u_feature./h.*(dKh+u_feature.*ddK);
+                ddKh = -1./(h.^3).*(u*dK + K)-u./h.*(dKh+u.*ddK);
 
                 dda = ddKh.*(ones(size(ddKh,1),1)*y_feature');
                 ddb = ddKh;
