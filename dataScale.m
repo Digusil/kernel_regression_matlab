@@ -18,7 +18,7 @@ function [y, mu, sigma] = dataScale(x, mode, mu, sigma)
                 mu = min(x,[],1);
                 sigma = range(x,1);
             otherwise
-                error('Wrong mode! Please use std or range')
+                error('Wrong mode! Please use std or range.')
         end
     end
     

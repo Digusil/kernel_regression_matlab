@@ -10,7 +10,7 @@ function [K, dK, ddK] = epanechnikovKernel(u, p)
         case 3
             Cp = 35/32;
         otherwise
-            error('Wrong parameter for the Epanechnikov kernel! p is element of the vector [1,2,3]')
+            error('Wrong parameter for the Epanechnikov kernel! p is element of the vector [1,2,3].')
     end
 
     K = Cp * (1-u.^2).^p;

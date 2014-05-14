@@ -1,4 +1,4 @@
-function [h_opt, MSE_val] = learnKernelRegression(u_feature, y_val, y_learn, kernelString, hMode, scaleMode, OptimOptions) 
+function [h_opt, MSE_val] = learnKernelRegression(x_val, y_val, x_feature, y_feature, kernelString, hMode, scaleMode, OptimOptions) 
     switch kernelString
         case 'gaussian'
             kernelFunction = @(u) gaussianKernel(u);
@@ -20,17 +20,19 @@ function [h_opt, MSE_val] = learnKernelRegression(u_feature, y_val, y_learn, ker
             kernelFunction = @(u) epanechnikovKernel(u, 3);
     end
     
+    u_feature = krFeature(x_val, x_feature);
+    
     switch hMode
         case 'single'
-            initial_h = 1;
+            initial_h = estimateH(x_feature, x_feature);
         case 'multi'
-            initial_h = ones(1, size(u_feature,2));
+            initial_h = estimateH(x_feature, x_feature)*ones(1, size(u_feature,2));
     end
 
-     h_opt = fminunc(@(h) krCostFunction(u_feature, y_val, y_learn, kernelFunction, h,  scaleMode), initial_h, OptimOptions);
+     h_opt = fminunc(@(h) krCostFunction(u_feature, y_val, y_feature, kernelFunction, h,  scaleMode), initial_h, OptimOptions);
 
     if nargout > 1
-        a_val = nadarayaWatsonEstimator(u_feature, y_learn, kernelFunction, h_opt,  scaleMode);
+        a_val = nadarayaWatsonEstimator(u_feature, y_feature, kernelFunction, h_opt,  scaleMode);
         tmp = a_val - y_val;
         MSE_val = 1/(2*size(u_feature,1)) * (tmp'*tmp);
     end
