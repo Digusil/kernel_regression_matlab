@@ -64,11 +64,11 @@ function [m, dm, ddm] = nadarayaWatsonEstimator(u_feature, y_feature, kernelFunc
 
         dm = (1./b).*da-(a./(b.^2)).*db;
         
-        if sum(isnan(dm)) ~= 0
+        if any(isnan(dm))
             dm(isnan(dm)) = 0;
         end
         
-        if sum(isinf(dm)) ~= 0
+        if any(isinf(dm))
             dm(isinf(dm)) = 0;
         end
     end

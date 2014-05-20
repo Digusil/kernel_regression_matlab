@@ -17,9 +17,9 @@ function [x_red, y_red] = krReduceDim(N, x_feature, y_feature)
         idxMin = round(N * m_feature)+1;
     else
         if N >= m_feature
-            idxMin = 0;
+            idxMin = 1;
         else
-            idxMin = m_feature - N +1;
+            idxMin = N +1;
         end
     end
 
