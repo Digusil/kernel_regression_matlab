@@ -32,8 +32,8 @@ p is the number of splitted parts
 
 data is a 1xp cell with the entries ".inputs" and ".targets". Example:
 ```matlab
-data[3].inputs = x_test;
-data[3].targets = y_test;
+data{3}.inputs = x_test;
+data{3}.targets = y_test;
 ```
 
 ### Dimension reduction
