@@ -78,7 +78,7 @@ h_opt is a scalar or a 1xn vector. These values are the optimized parameter for 
 To calculate a new tuple set based on the optimized hypothesis call the function `nadarayaWatsonEstimator`.
 
 ```matlab
-M = nadarayaWatsonEstimator(krfeature(x, x_feature), y_feature, kernelFunction, h, scaleMode)
+M = nadarayaWatsonEstimator(krFeature(x, x_feature), y_feature, kernelFunction, h, scaleMode)
 ```
 
 * x: mxk matrix; contains the input data to calculate the hypothesis values
